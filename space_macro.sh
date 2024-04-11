@@ -5,9 +5,9 @@
 
 for i in {1..5}
 do
-  xdotool keydown space
+  ydotool keydown space
   sleep 0.025
-  xdotool keyup space
+  ydotool keyup space
   sleep 0.025
 done
      

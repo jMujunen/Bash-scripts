@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sudo python3 /home/joona/python/macros/count_hydra_attacks.py
