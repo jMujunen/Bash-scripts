@@ -4,8 +4,6 @@
 # Usage: ./printenv_color.sh
 
 
-echo -e "\e[38;2;99;176;105m$(printenv)\e[0m"
-
 variable=$(printenv | grep -o -E "^[a-zA-Z0-9]+[^=]*")
 
 for var in $variable
