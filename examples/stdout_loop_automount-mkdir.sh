@@ -7,3 +7,5 @@ lsblk /dev/sdc | grep -P "sdc\d" | awk '{print $1'} |sed -E "s/.*([a-z][a-z][a-z
     mkdir /run/media/joona/$line
     mount /dev/$line /run/media/joona/$line
 done  
+
+

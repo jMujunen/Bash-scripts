@@ -4,4 +4,4 @@
 #                       See ~/python/macros/abbreviations.py for details.
 
 
-python3 /home/joona/python/macros/abbrevations.py
+python3 /home/joona/python/scripts/macros/abbrevations.py
