@@ -1,14 +1,12 @@
 #!/bin/bash
-color(){
-    for c; do
-        printf '\e[48;5;%dm%03d' $c $c
+for fgbg in 38 48 ; do # Foreground / Background
+    for color in {0..255} ; do # Colors
+        # Display the color
+        printf "\e[${fgbg};5;%sm  %3s  \e[0m" $color $color
+        # Display 6 colors per lines
+        if [ $((($color + 1) % 6)) == 4 ] ; then
+            echo # New line
+        fi
     done
-    printf '\e[0m \n'
-}
-
-IFS=$' \t\n'
-color {0..15}
-for ((i=0;i<6;i++)); do
-    color $(seq $((i*36+16)) $((i*36+51)))
+    echo # New line
 done
-color {232..255}
