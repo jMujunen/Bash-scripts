@@ -13,7 +13,7 @@ if [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
     echo "  -u: Core utilization in percent"
     echo "  -w: Power draw in watts"
     exit 0
-
+fi
 
 # Check if required arguments are provided
 if [ "$#" -gt 1 ]; then

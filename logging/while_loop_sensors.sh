@@ -5,13 +5,14 @@
 # Plot cpu volts
 { while true; do
     vin3reading=$(sensors | grep VIN3 | awk '{print $2 * 1000}'| tee -a /tmp/vin3.log)
-    vin7reading=$(sensors | grep VIN7 | awk '{print $2 * 1000}'| tee -a /tmp/vin3.log)
+    vin7reading=$(sensors | grep VIN2 | awk '{print $2 * 1000}')
 
     if [[ $vin3reading -lt 2000 ]]; then
         out=$(calc -p $vin3reading/1000);
     fi
     if [[ $vin3reading -gt 2001 ]]; then
         out=$(calc -p $vin3reading/1000/1000);
+
     fi
 
     if [[ $vin7reading -lt 2000 ]]; then

@@ -17,7 +17,7 @@ function next_boot() {
         return 0
     fi
     if [ "$1" == "-l" ] || [ "$1" == "--list" ]; then
-        sudo ls -Al /boot/loader/entries
+        efibootmgr | grep -Po "BootOrder.*|Boot\d{4}\*\s(\w{4,}\s)+" | bat -pl less
 
         if [ "$?" == 1 ]; then
             . ~/.bash_functions
@@ -30,7 +30,17 @@ function next_boot() {
         systemctl reboot --firmware-setup
 
     elif [ "$#" -eq 1 ]; then
-        systemctl reboot --boot-loader-entry="$1"
+    	efibootmgr --bootnext $1 >/dev/null
+    	answer=$(read "Reboot now? [Y/n]: ")
+	if [ $answer == "y"]; then
+    	  sleep 2
+          systemctl reboot
+	elif [ $answer == '']; then
+          sleep 2
+          systemctl reboot
+	else
+	  echo "Ok"
+	fi
         return 0
     else
         echo "Error: Invalid number of arguments. Use --help for usage information."
@@ -39,3 +49,4 @@ function next_boot() {
 }
 
 next_boot "$@"
+
