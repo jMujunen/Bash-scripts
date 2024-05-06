@@ -8,7 +8,8 @@ uki=0002
 
 function next_boot() {
     if [ "$#" -eq 0 ]; then
-        sudo systemctl reboot --boot-loader-entry=archwayland.conf
+        #sudo systemctl reboot --boot-loader-entry=archwayland.conf
+        sudo efibootmgr | grep -Po "BootOrder.*|Boot\d{4}\*\s(\w{4,}\s)+" | bat -pl less --theme=TwoDark
     fi
     if [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
         echo "Usage: nextboot.sh [OPTIONS] BOOT_LOADER_ENTRY"
@@ -36,7 +37,7 @@ function next_boot() {
         bootid="efi"
     elif [ "$1" == "windows" ]; then
     	bootid=0001
-   		sudo efibootmgr --bootnext 0001 
+   		sudo efibootmgr --bootnext 0001 >/dev/null 2>&1 
     else
     	bootid="$1"
         sudo efibootmgr --bootnext "$1" >/dev/null 2>&1 

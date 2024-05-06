@@ -4,4 +4,5 @@
 # Usage: ./find_files_in_dir_tree.sh
 
 # Find icons/images
-find . -type f -name "*.jpg" -o -name "*.png" -o -name "*.svg" -o -name "*.ico" -print1 | xargs -0 -I {} mv {} ../icons
+find . -type f -name "*.jpg" -o -name "*.png" -o -name "*.svg" -o -name "*.ico" -print1 |
+    xargs -0 -I {} mv {} ../icons
