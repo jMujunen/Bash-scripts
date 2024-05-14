@@ -36,31 +36,31 @@ function next_boot() {
         sudo bootctl reboot-to-firmware true
         bootid="efi"
     elif [ "$1" == "windows" ]; then
-    	bootid=0001
-   		sudo efibootmgr --bootnext 0001 >/dev/null 2>&1 
+        bootid=0001
+        sudo efibootmgr --bootnext 0001 >/dev/null 2>&1
     else
-    	bootid="$1"
-        sudo efibootmgr --bootnext "$1" >/dev/null 2>&1 
+        bootid="$1"
+        sudo efibootmgr --bootnext "$1" >/dev/null 2>&1
     fi
     if [ $? -eq 0 ]; then
-    	if [ "$bootid" == "efi" ]; then
-    		bootlabel="EFI Firmware"
-    	else
-    		bootlabel=$(efibootmgr | grep Boot$bootid | sed -E 's/Boot.....?.?(.*)HD.*/\1/g')
-		fi
-    	echo -e "\033[32mSelected $bootid - $bootlabel\033[0m"
-    	read -p "Reboot now? [Y/n]: " -n 1 -rs answer
-    	if [[ $answer =~ ^[Yy]?$|^$ ]]; then
-        	sleep 2
-        	sudo systemctl reboot
-    	else
-        	echo -e "\033[33mNext boot set - $bootlabel\033[0m"
-        	return 0
-    	fi
-   	else
-    	echo -e "\033[31mError: Invalid number of arguments. Use --help for usage information.\033[0m"
-    	return 1
-   	fi
+        if [ "$bootid" == "efi" ]; then
+            bootlabel="EFI Firmware"
+        else
+            bootlabel=$(efibootmgr | grep Boot$bootid | sed -E 's/Boot.....?.?(.*)HD.*/\1/g')
+        fi
+        echo -e "\033[32mSelected $bootid - $bootlabel\033[0m"
+        read -p "Reboot now? [Y/n]: " -n 1 -rs answer
+        if [[ $answer =~ '^[Yy]?$|^$' ]]; then
+            sleep 2
+            sudo systemctl reboot
+        else
+            echo -e "\033[33mNext boot set - $bootlabel\033[0m"
+            return 0
+        fi
+    else
+        echo -e "\033[31mError: Invalid number of arguments. Use --help for usage information.\033[0m"
+        return 1
+    fi
 }
 
 next_boot "$@"
