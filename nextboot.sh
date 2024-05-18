@@ -49,14 +49,11 @@ function next_boot() {
             bootlabel=$(efibootmgr | grep Boot$bootid | sed -E 's/Boot.....?.?(.*)HD.*/\1/g')
         fi
         echo -e "\033[32mSelected $bootid - $bootlabel\033[0m"
-        read -p "Reboot now? [Y/n]: " -n 1 -rs answer
-        if [[ $answer =~ '^[Yy]?$|^$' ]]; then
-            sleep 2
-            sudo systemctl reboot
-        else
-            echo -e "\033[33mNext boot set - $bootlabel\033[0m"
-            return 0
-        fi
+        echo "Reboot now? [Y/n]: "
+        read answer
+        [[ $answer =~ '^[Yy]?$|^$' ]] && sudo systemctl reboot
+        echo -e "\033[33mNext boot set - $bootlabel\033[0m"
+        return 0
     else
         echo -e "\033[31mError: Invalid number of arguments. Use --help for usage information.\033[0m"
         return 1
