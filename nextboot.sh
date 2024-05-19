@@ -51,9 +51,15 @@ function next_boot() {
         echo -e "\033[32mSelected $bootid - $bootlabel\033[0m"
         echo "Reboot now? [Y/n]: "
         read answer
-        [[ $answer =~ '^[Yy]?$|^$' ]] && sudo systemctl reboot
-        echo -e "\033[33mNext boot set - $bootlabel\033[0m"
-        return 0
+        if [[ $answer =~ ^[Yy]?$|^$ ]]; then
+        	if [[ -f ~/scripts/shutdown/force_kill.sh ]]; then
+        		~/scripts/shutdown/force_kill.sh
+       		fi
+            sudo /usr/bin/systemctl reboot now
+        else
+            echo -e "\033[33mNext boot set - $bootlabel\033[0m"
+            return 0
+        fi
     else
         echo -e "\033[31mError: Invalid number of arguments. Use --help for usage information.\033[0m"
         return 1
