@@ -11,3 +11,6 @@ killall -9 ollama_llama_server >/dev/null 2>&1 && echo "Killed Ollama" || echo "
 
 # Steam
 killall -9 steamwebhelper >/dev/null 2>&1 && echo "Killed Steam" || echo "Steam not running"
+
+
+

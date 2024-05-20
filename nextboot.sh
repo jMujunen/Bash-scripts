@@ -52,10 +52,10 @@ function next_boot() {
         echo "Reboot now? [Y/n]: "
         read answer
         if [[ $answer =~ ^[Yy]?$|^$ ]]; then
-        	if [[ -f ~/scripts/shutdown/force_kill.sh ]]; then
-        		~/scripts/shutdown/force_kill.sh
-       		fi
-            sudo /usr/bin/systemctl reboot now
+            if [[ -f ~/scripts/shutdown/force_kill.sh ]]; then
+                ~/scripts/shutdown/force_kill.sh
+            fi
+            sudo /usr/bin/systemctl reboot
         else
             echo -e "\033[33mNext boot set - $bootlabel\033[0m"
             return 0
