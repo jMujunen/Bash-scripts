@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 output=$(sensors | grep 'Package id 0:' | sed -E 's/.*([0-9]{2}\.[0-9].C[^,\)]).*/\1/; s/\..°C//g')
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # graph_gpu.sh - Graphs the main GPU's sensor data using ttyplot
 

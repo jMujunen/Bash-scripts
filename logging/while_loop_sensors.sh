@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # double_vin.sh - Plot VIN3 and VIN7 on the same ttyplot
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # compress_mp4.sh
 # 

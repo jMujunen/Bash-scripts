@@ -1,4 +1,4 @@
-#!/bin/bash  
+#!/bin/sh  
 
 T='gYw'   # The test text
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # log_gpu.sh - Log GPU temperature and utilization for $x seconds
 

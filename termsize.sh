@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # termsize.sh - Display terminal window size dynamically
 

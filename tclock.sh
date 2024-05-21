@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # tclock - Display a clock in a terminal
 

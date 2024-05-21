@@ -1,5 +1,5 @@
-#!/bin/bash
-@
+#!/bin/sh
+
 add_commas() {
     echo $1 | awk '{ printf "%\047d\n", $1 }'
 }

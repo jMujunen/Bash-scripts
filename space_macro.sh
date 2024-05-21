@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # space_macro.sh - Presses the spacebar 5 times
 #                  when mouse button 9 is pressed (b:9)

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # nextboot.sh - Reboots the system with the specified boot loader entry
 

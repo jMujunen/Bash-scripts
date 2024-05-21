@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Prompt the user to select a window
 echo "Please select a window..."

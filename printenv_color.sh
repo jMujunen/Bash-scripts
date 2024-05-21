@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # printenv_color.sh - Adds color to printenv output
 # Usage: ./printenv_color.sh

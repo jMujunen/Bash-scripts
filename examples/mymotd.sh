@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 uptime=$(uptime -p)
 host=$(uname -n)
