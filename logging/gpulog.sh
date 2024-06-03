@@ -45,14 +45,13 @@ fi
 # If file doesnt exsist
 if [ ! -e $file ]; then
     echo "FILE != EXSIST"
-    echo "datetime,temperature,usage,power,core_clock,memory_clock,fan,voltage" >$file
+    echo "datetime,temperature,usage,power,core_clock,memory_clock,memory_usage,fan,voltage" >$file
 fi
 
 for ((i = 1; i <= $count; i++)); do
     printf "Time Elapsed: $SECONDS/$1 \r"
-    voltage=$(nvidia-smi -q --display=Voltage | grep -o -P "Graphics.*" | awk '{ printf "%.1f\n", $3}')
-    output=$(nvidia-smi --query-gpu=timestamp,temperature.gpu,utilization.gpu,power.draw,clocks.current.graphics,clocks.current.memory,fan.speed \
-        --format=csv,noheader,nounits)
+    voltage=$(nvidia-smi -q --display=Voltage | grep -oP "\d+\.\d+\s(mV)")
+    output=$(nvidia-smi --query-gpu=timestamp,temperature.gpu,utilization.gpu,power.draw,clocks.current.graphics,clocks.current.memory,utilization.memory,fan.speed --format=csv,noheader,nounits)
     printf "$output, $voltage\r" | sed -E 's/\//-/g'
     echo "$output, $voltage" | sed -E 's/\//-/g' >>$file
     sleep 1
