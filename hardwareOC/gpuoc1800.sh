@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 nvidia-smi --lock-gpu-clocks=1500,1800 --mode=1
 if [ $? -ne 0 ]; then
     echo "Permission error: Current user does not have permission to change the file."

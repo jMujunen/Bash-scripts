@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # tput_colors - Demonstrate color combinations.
 

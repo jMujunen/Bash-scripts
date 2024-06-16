@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # dos2unix_recursive.sh - Recursively converts all files in the current directory from DOS format to UNIX format
 

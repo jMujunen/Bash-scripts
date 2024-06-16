@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Plot sys temp
 { while true; do 

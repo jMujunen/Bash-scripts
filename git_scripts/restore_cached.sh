@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # rm_cached.sh - Calls `git rm --cached` on deleted files from `git status` 
 

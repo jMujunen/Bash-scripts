@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 output=$(sensors | grep "Sensor 2" | awk  '{print $3}' | sed -E 's/.*([0-9][0-9]).*/\1/g')
 

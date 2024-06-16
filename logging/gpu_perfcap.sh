@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo "Sync,SW_Thermal,HW-Power,HW_Slowdown,SW_Power,APP_Settings,Idle"
 echo $(nvidia-smi --query-gpu=clocks_throttle_reasons.sync_boost,clocks_throttle_reasons.sw_thermal_slowdown,\

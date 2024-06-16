@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # graph_osrs_ping.sh - Graphs ping results using ttyplot - Helps get better ticks
 

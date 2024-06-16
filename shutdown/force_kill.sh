@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # force_kill.sh - force kill known problem processes
 

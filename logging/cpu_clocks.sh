@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 raw_output=$(cat /proc/cpuinfo)
 output_file=~/Logs/cpu_clocks.csv

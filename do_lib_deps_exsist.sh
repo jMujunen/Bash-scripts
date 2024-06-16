@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 
 for line in $(ldd /usr/lib/libnvidia-glvkspirv.so.550.67 | grep -Po "\/usr/.*\.\d"); do 

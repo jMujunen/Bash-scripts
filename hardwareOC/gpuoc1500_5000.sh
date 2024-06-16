@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 nvidia-smi --lock-gpu-clocks=0,1600 --mode=1 | sed -u s/.*//
 if [ $? -ne 0 ]; then
     echo "Permission error: Current user does not have permission to change the file."

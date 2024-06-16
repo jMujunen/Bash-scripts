@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ####################################
 ####    Recursive Move Script    ###

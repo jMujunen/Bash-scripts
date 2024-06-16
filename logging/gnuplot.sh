@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # gnuplot.sh - Terminal plotting with gnuplot
 # Set the filename of the CSV file

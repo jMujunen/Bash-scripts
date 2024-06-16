@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Define the filename with date and time
 FILENAME="$HOME/Pictures/Screenshots/Area_$(date +%F_%H-%M-%S).png"

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 nvidia-smi -pl 290.00
 nvidia-smi --lock-gpu-clocks=220,2130 --mode=1
 if [ $? -ne 0 ]; then
