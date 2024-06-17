@@ -18,4 +18,4 @@ else
     DIR="$1"
 fi
 # Convert dos line endings to unix
-find $DIR -type f -name "*.[pPsS][yYhH]" -print0 | xargs -0 dos2unix
+find "$DIR" -type f -name "*.[pPsS][yYhH]" -print0 | xargs -0 dos2unix

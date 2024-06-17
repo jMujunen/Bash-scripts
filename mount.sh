@@ -25,7 +25,6 @@ sudo chown -R joona:joona "$1"
 echo -e "[\033[38;5;200m sudo chmod -R 744 $1 \033[0m]"
 sudo chmod -R 744 "$1"
 
-
 # Step 2: Get UUID
 echo -e "[\033[38;5;200m sudo blkid UUID == $(sudo blkid -s UUID -o value "$2") \033[0m]"
 uuid=$(blkid -s UUID -o value "$2")
@@ -35,12 +34,11 @@ type=$(blkid -s TYPE -o value "$2")
 
 1
 echo -e "[\033[1;32m#$1 \033[0m]"
-echo -e "\n#$1" >> /etc/fstab
+echo -e "\n#$1" >>/etc/fstab
 
-echo -e "[\033[38;5;200m "UUID=$uuid $1 $type noatime,x-systemd.automount,x-systemd.device-timeout=10,x-systemd.idle-timeout=120min,uid=1000,gid=1000 0 2"\033[0m]"
-echo "UUID=$uuid $1 $type noatime,x-systemd.automount,x-systemd.device-timeout=10,x-systemd.idle-timeout=120min,uid=1000,gid=1000 0 2" >> /etc/fstab
+echo -e "[\033[38;5;200m UUID=$uuid $1 $type defaults 0 0\033[0m]"
+echo "UUID=$uuid $1 $type defaults 0 0" >>/etc/fstab
 
 # Step 4: Mount Drives
 echo -e "[\033[38;5;200m sudo mount -a \033[0m]"
 sudo mount -a
-
