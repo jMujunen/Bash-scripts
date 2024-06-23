@@ -23,7 +23,10 @@ fi
 
 # Graph temp
 if [ "$1" == "-t" ]; then
-    nvidia-smi -l=1 --query-gpu=timestamp,utilization.gpu,power.draw,temperature.gpu,clocks.current.graphics,clocks.current.memory,fan.speed --format=csv | sed -u 's/timestamp//g; s/^.*fan.speed [%]//g; s/^.*W,//g; s/,.*//g' | ttyplot -c . -s 100 -t "GPU TEMP -u Celsius" -u C
+    nvidia-smi --loop-ms=200 --query-gpu=timestamp,utilization.gpu,power.draw,temperature.gpu,\
+    clocks.current.graphics,clocks.current.memory,fan.speed --format=csv \
+    					| sed -u 's/timestamp//g; s/^.*fan.speed [%]//g; s/^.*W,//g; s/,.*//g' \
+    					| ttyplot -c $(echo -ne " \u$(printf '%x' 9609) ") -s 100 -t "GPU TEMP -u Celsius" -u C
     exit 0
 fi
 
