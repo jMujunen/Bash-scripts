@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 # tclock - Display a clock in a terminal
 
 BG_BLUE="$(tput setab 4)"
