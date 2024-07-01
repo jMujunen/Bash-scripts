@@ -19,6 +19,6 @@ while i==100 {
     plot "< tail -1000 /tmp/cpuinfo.csv" using ($1 * 100) with lines title "Voltage" linewidth 1 linecolor "#02de04",\
     "< tail -1000 < /tmp/cpuinfo.csv" using 4 with lines title "Max Temp" linewidth 1 linecolor "#db5a06",\
     "< tail -1000 < /tmp/cpuinfo.csv" using 5 with lines title "Avg Temp" linewidth 1 linecolor "#B6B59"
-    
+
     pause 1
 }

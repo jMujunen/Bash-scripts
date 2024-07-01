@@ -1,0 +1,57 @@
+#!/bin/bash
+#
+# Usage:
+#	./timeshift-create.sh --comments <comment> --tag <tag> <DEVICE>
+#
+# Parameters:
+# -----------
+#	comments (Optional): Comment for the snapshot
+#	tag (Optional): Add a tag
+#	device (Default=/dev/sda2)
+
+printhelp(){
+    echo "Usage: ./timeshift-create.sh -c, --comments <comment> -t, --tags <tag>  -d, --device <DEVICE>"
+    echo "Parameters:"
+    echo "-----------"
+    echo "comments (Optional): Comment for the snapshot"
+    echo "tags  (Optional): Add a tag"
+    echo "device (Default=/dev/sda2)"
+    exit 1
+}
+if [[ $# -eq 0  ]]; then
+    sudo timeshift --create --comments "" --snapshot-device /dev/sda2 --rsync
+    exit 0
+fi
+if [[ $1 == "--help" ]] || [[ $1 == "-h" ]]; then
+    printhelp
+else
+    comments=""
+    tag=""
+    device="/dev/sda2"
+
+    while [[ $# -gt 0 ]]; do
+        key="$1"
+        case  $key  in
+        -c|--comments)
+            comments="$2"
+            shift
+            shift
+            ;;
+         -t|--tag)
+            tag="$2"
+            shift
+            shift
+            ;;
+         -d|--device)
+            device="$2"
+            shift
+            shift
+             ;;
+        *)
+            printhelp
+            ;;
+        esac
+    done
+    sudo timeshift  --create  --comments "${comments}"  --tags "${tag}"  --snapshot-device "${device}"  --rsync
+
+fi
