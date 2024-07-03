@@ -14,7 +14,7 @@ function recover_tree {
 
     # Loop over all entries in the tree
     while IFS= read -r line; do
-        mode=$(echo "$line" | awk '{print $1}')gi
+        mode=$(echo "$line" | awk '{print $1}')
         type=$(echo "$line" | awk '{print $2}')
         hash=$(echo "$line" | awk '{print $3}')
         file=$(echo "$line" | awk '{print $4}')
