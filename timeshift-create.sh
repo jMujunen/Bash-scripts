@@ -10,7 +10,7 @@
 #	device (Default=/dev/sda2)
 
 printhelp(){
-    echo "Usage: ./timeshift-create.sh -c, --comments <comment> -t, --tags <tag>  -d, --device <DEVICE>"
+    echo "Usage: ./timeshift-create.sh -c, --comments <comment> -t, --tags <tag>  [--device /dev/sda2]"
     echo "Parameters:"
     echo "-----------"
     echo "comments (Optional): Comment for the snapshot"
@@ -52,6 +52,14 @@ else
             ;;
         esac
     done
-    sudo timeshift  --create  --comments "${comments}"  --tags "${tag}"  --snapshot-device "${device}"  --rsync
 
+fi
+
+if [[ "$tag" == "" ]]; then
+    sudo timeshift --create --comments "$comments" --snapshot-device "$device" --rsync
+    exit 0
+else
+    sudo timeshift  --create  --comments "${comments}"  --tags "${tag}"  \
+            --snapshot-device "${device}"  --rsync
+    exit 0
 fi

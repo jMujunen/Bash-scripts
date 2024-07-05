@@ -19,6 +19,6 @@ fi
 
 for ((i = start; i < start + $end; i++)); do
     # Convert decimal to hexadecimal, then print the character
-    echo -ne "\033[1;40m \u$(printf '%x' $i)\033[0m \033[31m $(python3 /home/joona/python/examples/unicode_sym.py $i | cut -c 3-)\033[0m"
+    echo -ne "\033[1;40m \u$(printf '%x' $i) \033[0m \033[31m"
 done
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# ./hex2dec <value> - Returns the decimal representaition of a hexadecimal
 hex_code=$1
 
 if [ -z "$hex_code" ]; then
