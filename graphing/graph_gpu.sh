@@ -3,7 +3,7 @@
 
 # Print help message
 if [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
-    echo "Usage: graph_gpu_temp.sh [OPTIONS] [PLOT_CHAR=⛚]"
+    echo "Usage: ./ggpu.sh OPTION [PLOT_CHAR=⛚ ...]"
     echo "OPTIONS: "
     echo "  -m Memory clock"
     echo "  -c Core clock"
@@ -18,10 +18,24 @@ fi
 if [ "$#" -gt 2 ]; then
     echo "Error: Invalid number of arguments. Use --help for usage information."
     exit 1
-elif
+fi
+
+# Default plot character
+PLOT_CHAR= # 9609
+if [ "$2" ]; then
+    PLOT_CHAR=$2
+fi
 
 # Graph specified value
 
+
+
+
+nvidia-smi --loop-ms=200 --query-gpu=timestamp,utilization.gpu,power.draw,temperature.gpu,\
+clocks.current.graphics,clocks.current.memory,fan.speed --format=csv \
+                    | sed -u 's/timestamp//g; s/^.*fan.speed [%]//g; s/^.*W,//g; s/,.*//g' \
+                    | ttyplot -c $(echo -ne " \u$(printf '%x' 9609) ") -s 100 -t "GPU TEMP -u Celsius" -u C
+exit 0
 
 
 
