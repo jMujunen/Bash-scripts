@@ -1,9 +1,10 @@
+
 #!/bin/bash
 # graph_gpu.sh - Graphs the main GPU's sensor data using ttyplot
 
 # Print help message
 if [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
-    echo "Usage: ./ggpu.sh OPTION [PLOT_CHAR=⛚ ...]"
+  echo "Usage: ./graph_gpu.sh OPTION [PLOT_CHAR=⛚ ...]"
     echo "OPTIONS: "
     echo "  -m Memory clock"
     echo "  -c Core clock"
@@ -27,22 +28,52 @@ if [ "$2" ]; then
 fi
 
 # Graph specified value
-
-
-
-
-nvidia-smi --loop-ms=200 --query-gpu=timestamp,utilization.gpu,power.draw,temperature.gpu,\
+if [ "$1" == "-t" ]; then
+    nvidia-smi --loop-ms=200 --query-gpu=timestamp,utilization.gpu,power.draw,temperature.gpu,\
 clocks.current.graphics,clocks.current.memory,fan.speed --format=csv \
                     | sed -u 's/timestamp//g; s/^.*fan.speed [%]//g; s/^.*W,//g; s/,.*//g' \
-                    | ttyplot -c $(echo -ne " \u$(printf '%x' 9609) ") -s 100 -t "GPU TEMP -u Celsius" -u C
-exit 0
-
-
+                    | ttyplot -c $(echo -ne )  -s 100 -t "GPU TEMP -u Celsius" -u C
+t
+    exit 0
+fi
 
 # Graph temp
-# if [ "$1" == "-t" ]; then
-#     nvidia-smi --loop-ms=200 --query-gpu=timestamp,utilization.gpu,power.draw,temperature.gpu,\
-#     clocks.current.graphics,clocks.current.memory,fan.speed --format=csv \
-#     					| sed -u 's/timestamp//g; s/^.*fan.speed [%]//g; s/^.*W,//g; s/,.*//g' \
-#     					| ttyplot -c $(echo -ne " \u$(printf '%x' 9609) ") -s 100 -t "GPU TEMP -u Celsius" -u C
-#     exit 0
+if [ "$1" == "-m" ]; then
+    nvidia-smi --loop-ms=200 --query-gpu=timestamp,utilization.gpu,power.draw,temperature.gpu,\
+clocks.current.graphics,clocks.current.memory,fan.speed --format=csv \
+                    | sed -u 's/timestamp//g; s/^.*fan.speed [%]//g; s/^.*W,//g; s/,.*//g' \
+                    | ttyplot -c $(echo -ne " \u$(printf '%x' 9609) ") -s 100 -t "GPU Memory Clock" -u MHz
+    exit 0
+fi
+
+if [ "$1" == "-c" ]; then
+    nvidia-smi --loop-ms=200 --query-gpu=timestamp,utilization.gpu,power.draw,temperature.gpu,\
+clocks.current.graphics,clocks.current.memory,fan.speed --format=csv \
+                    | sed -u 's/timestamp//g; s/^.*fan.speed [%]//g; s/^.*W,//g; s/,.*//g' \
+                    | ttyplot -c $(echo -ne " \u$(printf '%x' 9609) ") -s 100 -t "GPU Core Clock" -u MHz
+    exit 0
+fi
+
+if [ "$1" == "-l" ]; then
+    nvidia-smi --loop-ms=200 --query-gpu=timestamp,utilization.gpu,power.draw,temperature.gpu,\
+clocks.current.graphics,clocks.current.memory,fan.speed --format=csv \
+                    | sed -u 's/timestamp//g; s/^.*fan.speed [%]//g; s/^.*W,//g; s/,.*//g' \
+                    | ttyplot -c $(echo -ne " \u$(printf '%x' 9609) ") -s 100 -t "GPU Core Load" -u %
+    exit 0
+fi
+
+if [ "$1" == "-u" ]; then
+    nvidia-smi --loop-ms=200 --query-gpu=timestamp,utilization.gpu,power.draw,temperature.gpu,\
+clocks.current.graphics,clocks.current.memory,fan.speed --format=csv \
+                    | sed -u 's/timestamp//g; s/^.*fan.speed [%]//g; s/^.*W,//g; s/,.*//g' \
+                    | ttyplot -c $(echo -ne " \u$(printf '%x' 9609) ") -s 100 -t "GPU Core Utilization" -u %
+    exit 0
+fi
+
+if [ "$1" == "-w" ]; then
+    nvidia-smi --loop-ms=200 --query-gpu=timestamp,utilization.gpu,power.draw,temperature.gpu,\
+clocks.current.graphics,clocks.current.memory,fan.speed --format=csv \
+                    | sed -u 's/timestamp//g; s/^.*fan.speed [%]//g; s/^.*W,//g; s/,.*//g' \
+                    | ttyplot -c $(echo -ne " \u$(printf '%x' 9609) ") -s 100 -t "GPU Power Draw" -u W
+    exit 0
+fi
