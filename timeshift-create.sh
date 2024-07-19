@@ -10,12 +10,12 @@
 #	device (Default=/dev/sda2)
 
 printhelp(){
-    echo "Usage: ./timeshift-create.sh -c, --comments <comment> -t, --tags <tag>  [--device /dev/sda2]"
+    echo "Usage: ./timeshift-create.sh --comments <comment> --tags <tag>  --device (/dev/sda2)"
     echo "Parameters:"
     echo "-----------"
-    echo "comments (Optional): Comment for the snapshot"
-    echo "tags  (Optional): Add a tag"
-    echo "device (Default=/dev/sda2)"
+    echo "comments (Optional):  Comment for the snapshot"
+    echo "tags (Optional):      Add a tag"
+    echo "device (Optional):    Snapshot device/partition (Default=/dev/sda2)"
     exit 1
 }
 if [[ $# -eq 0  ]]; then

@@ -6,45 +6,37 @@ win_boot_id=0001
 sb=0003
 uki=0002
 
-
-printhelp(){
-    echo "Usage: nextboot.sh [OPTIONS] BOOT_LOADER_ENTRY"
-    echo "Reboots the system with the specified boot loader entry."
-    echo
-    echo "Options:"
-    echo -c , --choose Choose the next boot loader entry with fzf
-    echo -l , --list List available boot loader entries
-    echo -h , --help Show this help message
-    echo efi Reboots in UEFI interface
-    echo windows reboots to configured windows bootid - $win_boot_id
-    exit $1
-}
-
 function next_boot() {
     if [ "$#" -eq 0 ]; then
         #sudo systemctl reboot --boot-loader-entry=archwayland.conf
         sudo efibootmgr \
                 | grep -Po "BootOrder.*|Boot\d{4}\*\s(\w{4,}\s)+" \
                 | bat -pl less --theme=TwoDark
-        return 0
 
     fi
-
     if [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
-        printhelp 0
+        echo "Usage: nextboot.sh [OPTIONS] BOOT_LOADER_ENTRY"
+        echo "Reboots the system with the specified boot loader entry."
+        echo
+        echo "Options:"
+        echo -c , --choose Choose the next boot loader entry with fzf
+        echo -l , --list List available boot loader entries
+        echo -h , --help Show this help message
+        echo efi Reboots in UEFI interface
+        echo windows reboots to configured windows bootid - $win_boot_id
+        return 0
     fi
     if [ "$1" == "-c" ] || [ "$1"  ==  "--choose" ]; then
         sudo efibootmgr\
                  | grep -Po "BootOrder.*|Boot\d{4}\*\s(\w{4,}\s)+" \
                  | bat  -pl less  --theme=TwoDark \
                  | fzf -m 1  \
-                  | awk '{print $1}' \
-                  | grep -oP "\d{4}" \
+                  | awk '{print $2}' \
                   | xargs sudo efibootmgr --bootnext
-
-    elif [ "$1" == "-l" ] || [ "$1" == "--list" ]; then
-        sudo efibootmgr \
-                |  grep -Po "BootOrder.*|Boot\d{4}\*\s(\w{4,}\s)+" \
+    fi
+    if [ "$1" == "-l" ] || [ "$1" == "--list" ]; then
+        sudo efibootmgr\
+                |  grep -Po "BootOrder.*|Boot\d{4}\*\s(\w{4,}\s)+"\
                 |  bat -pl less --theme=TwoDark
 
         if [ "$?" == 1 ]; then
@@ -59,12 +51,11 @@ function next_boot() {
         bootid="efi"
     elif [ "$1" == "windows" ]; then
         bootid=0001
-        sudo efibootmgr --bootnext 0001 >/dev/null 2>&1nex
-  	else
+        sudo efibootmgr --bootnext 0001 >/dev/null 2>&1
+    else
         bootid="$1"
         sudo efibootmgr --bootnext "$1" >/dev/null 2>&1
     fi
-    # shellcheck disable=SC2181
     if [ $? -eq 0 ]; then
         if [ "$bootid" == "efi" ]; then
             bootlabel="EFI Firmware"
@@ -78,7 +69,7 @@ function next_boot() {
             if [[ -f ~/scripts/shutdown/force_kill.sh ]]; then
                 ~/scripts/shutdown/force_kill.sh
             fi
-            sudo /usr/bin/systemctl reboot
+            sudo systemctl start reboot.target
         else
             echo -e "\033[33mNext boot set - $bootlabel\033[0m"
             return 0
@@ -87,8 +78,6 @@ function next_boot() {
         echo -e "\033[31mError: Invalid number of arguments. Use --help for usage information.\033[0m"
         return 1
     fi
-    return 1
 }
-sudo echo
-next_boot "$@" || exit $?
-exit 0
+
+next_boot "$@"
