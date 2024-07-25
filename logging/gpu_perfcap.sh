@@ -12,7 +12,9 @@ clocks_throttle_reasons.sw_power_cap,\
 clocks_throttle_reasons.applications_clocks_setting,\
 clocks_throttle_reasons.gpu_idle,\
  --format=csv,noheader)
-    done
+ echo "$line" | tee -a "/tmp/gpu_percap.csv"
+ sleep 1
+done
 }
 
 echo "Sync,SW_Thermal,HW-Power,HW_Slowdown,SW_Power,APP_Settings,Idle"
