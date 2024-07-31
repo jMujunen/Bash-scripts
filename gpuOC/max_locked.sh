@@ -1,9 +1,9 @@
 #!/bin/bash
-if ! nvidia-smi -pl 350.00 >/dev/null 2>&1; then
-	exit 1
+if ! nvidia-smi -pl 350.00 > /dev/null 2>&1; then
+    exit 1
 else
-	nvidia-smi --lock-gpu-clocks=2115,2115 --mode=1 >/dev/null 2>&1
-	nvidia-smi --lock-memory-clocks=9501,9501 >/dev/null 2>&1
+    nvidia-smi --lock-gpu-clocks=2115,2115 --mode=1 > /dev/null 2>&1
+    nvidia-smi --lock-memory-clocks=9501,9501 > /dev/null 2>&1
 fi
 
 echo -e "\033[1;4mNew OC:\033[0m"

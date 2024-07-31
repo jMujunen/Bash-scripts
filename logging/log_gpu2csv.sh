@@ -26,7 +26,7 @@ fi
 if [ "$#" -gt 2 ]; then
     # Display usage information
     echo "Error: Invalid number of arguments."
-	print_help
+    print_help
     exit 1
 fi
 
@@ -35,16 +35,14 @@ fi
 # echo "$output" | tee ~/Logs/$2.csv
 
 if [ ! -s /tmp/$2.csv ]; then
-	echo "datetime,temperature,usage,power,core_clock,memory_clock,fan,voltage"
+    echo "datetime,temperature,usage,power,core_clock,memory_clock,fan,voltage"
 fi
 
-
-
-for ((i=1; i<=$1; i++)); do
-	printf "Time Elapsed: $SECONDS/$1 \r"
-	voltage=$(nvidia-smi -q --display=Voltage | grep -o -P "Graphics.*" | awk '{ printf "%.1f\n", $3}')
-	output=$(nvidia-smi --query-gpu=timestamp,temperature.gpu,utilization.gpu,power.draw,clocks.current.graphics,clocks.current.memory,fan.speed \
-    --format=csv,noheader,nounits)
-    echo "$output, $voltage" | sed -E 's/\//-/g' | tee -a  ~/Logs/$2.csv
+for ((i = 1; i <= $1; i++)); do
+    printf "Time Elapsed: $SECONDS/$1 \r"
+    voltage=$(nvidia-smi -q --display=Voltage | grep -o -P "Graphics.*" | awk '{ printf "%.1f\n", $3}')
+    output=$(nvidia-smi --query-gpu=timestamp,temperature.gpu,utilization.gpu,power.draw,clocks.current.graphics,clocks.current.memory,fan.speed \
+        --format=csv,noheader,nounits)
+    echo "$output, $voltage" | sed -E 's/\//-/g' | tee -a ~/Logs/$2.csv
     sleep 1
 done

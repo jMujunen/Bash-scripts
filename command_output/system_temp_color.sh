@@ -1,6 +1,6 @@
 #!/bin/bash
 
-output=$(sensors | grep "Sensor 2" | awk  '{print $3}' | sed -E 's/.*([0-9][0-9]).*/\1/g')
+output=$(sensors | grep "Sensor 2" | awk '{print $3}' | sed -E 's/.*([0-9][0-9]).*/\1/g')
 
 if [[ $output -gt 40 ]]; then
     echo -e "\e[33m$output°C \e[0m"

@@ -10,8 +10,8 @@ function next_boot() {
     if [ "$#" -eq 0 ]; then
         #sudo systemctl reboot --boot-loader-entry=archwayland.conf
         sudo efibootmgr \
-                | grep -Po "BootOrder.*|Boot\d{4}\*\s(\w{4,}\s)+" \
-                | bat -pl less --theme=TwoDark
+            | grep -Po "BootOrder.*|Boot\d{4}\*\s(\w{4,}\s)+" \
+            | bat -pl less --theme=TwoDark
 
     fi
     if [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
@@ -26,18 +26,16 @@ function next_boot() {
         echo windows reboots to configured windows bootid - $win_boot_id
         return 0
     fi
-    if [ "$1" == "-c" ] || [ "$1"  ==  "--choose" ]; then
-        sudo efibootmgr\
-                 | grep -Po "BootOrder.*|Boot\d{4}\*\s(\w{4,}\s)+" \
-                 | bat  -pl less  --theme=TwoDark \
-                 | fzf -m 1  \
-                  | awk '{print $2}' \
-                  | xargs sudo efibootmgr --bootnext
+    if [ "$1" == "-c" ] || [ "$1" == "--choose" ]; then
+        sudo efibootmgr | grep -Po "BootOrder.*|Boot\d{4}\*\s(\w{4,}\s)+" \
+            | bat -pl less --theme=TwoDark \
+            | fzf -m 1 \
+            | awk '{print $2}' \
+            | xargs sudo efibootmgr --bootnext
     fi
     if [ "$1" == "-l" ] || [ "$1" == "--list" ]; then
-        sudo efibootmgr\
-                |  grep -Po "BootOrder.*|Boot\d{4}\*\s(\w{4,}\s)+"\
-                |  bat -pl less --theme=TwoDark
+        sudo efibootmgr | grep -Po "BootOrder.*|Boot\d{4}\*\s(\w{4,}\s)+" \
+            | bat -pl less --theme=TwoDark
 
         if [ "$?" == 1 ]; then
             . ~/.bash_functions
@@ -51,10 +49,10 @@ function next_boot() {
         bootid="efi"
     elif [ "$1" == "windows" ]; then
         bootid=0001
-        sudo efibootmgr --bootnext 0001 >/dev/null 2>&1
+        sudo efibootmgr --bootnext 0001 > /dev/null 2>&1
     else
         bootid="$1"
-        sudo efibootmgr --bootnext "$1" >/dev/null 2>&1
+        sudo efibootmgr --bootnext "$1" > /dev/null 2>&1
     fi
     if [ $? -eq 0 ]; then
         if [ "$bootid" == "efi" ]; then

@@ -4,7 +4,6 @@
 # For each `blob` in the repository, create a newfile in the current directory
 # with the same name and contents.
 
-
 function recover_tree {
     local tree=$1
     local path=$2

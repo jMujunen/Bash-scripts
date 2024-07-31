@@ -9,7 +9,7 @@
 #	tag (Optional): Add a tag
 #	device (Default=/dev/sda2)
 
-printhelp(){
+printhelp() {
     echo "Usage: ./timeshift-create.sh --comments <comment> --tags <tag>  --device (/dev/sda2)"
     echo "Parameters:"
     echo "-----------"
@@ -18,7 +18,7 @@ printhelp(){
     echo "device (Optional):    Snapshot device/partition (Default=/dev/sda2)"
     exit 1
 }
-if [[ $# -eq 0  ]]; then
+if [[ $# -eq 0 ]]; then
     sudo timeshift --create --comments "" --snapshot-device /dev/sda2 --rsync
     exit 0
 fi
@@ -31,25 +31,25 @@ else
 
     while [[ $# -gt 0 ]]; do
         key="$1"
-        case  $key  in
-        -c|--comments)
-            comments="$2"
-            shift
-            shift
-            ;;
-         -t|--tag)
-            tag="$2"
-            shift
-            shift
-            ;;
-         -d|--device)
-            device="$2"
-            shift
-            shift
-             ;;
-        *)
-            printhelp
-            ;;
+        case $key in
+            -c | --comments)
+                comments="$2"
+                shift
+                shift
+                ;;
+            -t | --tag)
+                tag="$2"
+                shift
+                shift
+                ;;
+            -d | --device)
+                device="$2"
+                shift
+                shift
+                ;;
+            *)
+                printhelp
+                ;;
         esac
     done
 
@@ -59,7 +59,7 @@ if [[ "$tag" == "" ]]; then
     sudo timeshift --create --comments "$comments" --snapshot-device "$device" --rsync
     exit 0
 else
-    sudo timeshift  --create  --comments "${comments}"  --tags "${tag}"  \
-            --snapshot-device "${device}"  --rsync
+    sudo timeshift --create --comments "${comments}" --tags "${tag}" \
+        --snapshot-device "${device}" --rsync
     exit 0
 fi
