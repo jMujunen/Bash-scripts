@@ -1,4 +1,7 @@
 #!/bin/bash
+
+# Source color definitions and the main function 'save_sesh' from .bash_functions
+source "$ZDOTDIR/.color_defs"
 source "$ZDOTDIR/.bash_functions"
 
 default_dir="$HOME/Logs/kitty/"
