@@ -22,9 +22,9 @@
         vin7out=$(calc -p "$vin7reading"/1000/1000)
     fi
 
-    echo "VIN3: $out" > /dev/pts/2
-    echo "VIN7 $vin7out" > /dev/pts/2
-    echo "VIN7 $vin7out" > /dev/pts/2
+    # echo "VIN3: $out" > /dev/pts/2
+    # echo "VIN7 $vin7out" > /dev/pts/2
+    # echo "VIN7 $vin7out" > /dev/pts/2
 
     echo "$vin7out"
     echo "$out"
