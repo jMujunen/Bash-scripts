@@ -4,7 +4,7 @@
 source "$ZDOTDIR/.color_defs"
 source "$ZDOTDIR/.bash_functions"
 
-default_dir="$HOME/Logs/kitty/"
+default_dir="$HOME/Logs/kitty"
 mkdir -p "$default_dir" > /dev/null 2>&1
 
 timestamp=$(date +%F\ %H:%M)
@@ -12,7 +12,7 @@ output_path="$default_dir/$timestamp.log"
 
 # Define help msg
 printhelp() {
-	echo "Usage: save_session_hist.sh [OPTIONS]... FILE_NAME"
+	echo "Usage: save_session_hist.sh FILE_NAME"
 	echo "Save stdin history to FILE_NAME"
 	echo ""
 	echo "Options:"
@@ -21,13 +21,16 @@ printhelp() {
 	exit 0
 }
 # Parse options
-if [ "$1" = "-h" ] || [ "$1" = "--help" ] || [[ $* -gt 1 ]]; then
+if [ "$1" = "-h" ] || [ "$1" = "--help" ] || [[ $# -gt 1 ]]; then
 	printhelp | bat -ppl help
+	exit 1
 fi
-
 if save_hist "$1"; then
-	echo "Session history saved to $output_path"
+	echo "Session history saved to $output_path" \
+		&& kdialog --msgbox "Saved shell stdin/stdout history to file $output_path" > /dev/null 2>&1
+
 else
-	echo "Failed to save session history."
+	echo "Failed to save session history." \
+		&& kdialog --error "Failed save stdin/stdout hist to file $output_path" > /dev/null 2>&1
 	printhelp | bat -ppl help
 fi

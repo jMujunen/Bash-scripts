@@ -67,6 +67,7 @@ function next_boot() {
             if [[ -f ~/scripts/shutdown/force_kill.sh ]]; then
                 ~/scripts/shutdown/force_kill.sh
             fi
+            /bin/bash /home/joona/scripts/shutdown/move_boot_hwinfo.sh
             sudo systemctl start reboot.target
         else
             echo -e "\033[33mNext boot set - $bootlabel\033[0m"
