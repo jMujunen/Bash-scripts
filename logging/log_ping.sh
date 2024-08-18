@@ -7,4 +7,5 @@ while true; do
 # Round to 1 decimal places
 rounded=$(printf "%.1f" "$output")
 echo "$rounded" >> /tmp/.ping
+sleep 0.2
 done
