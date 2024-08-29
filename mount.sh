@@ -1,18 +1,18 @@
 #!/bin/bash
 
 if [ "$1" == "--help" ]; then
-    # Display usage information
-    echo "Usage: ./script_name.sh DIRECTORY_NAME DEV_PATH"
-    echo "Automatically mounts drives depending on command line arguments."
-    echo "  DIRECTORY_NAME: Name of the directory to be created and mounted."
-    echo "  DEVICE_PATH:    Path of the device to be mounted."
-    exit 0
+	# Display usage information
+	echo "Usage: ./script_name.sh DIRECTORY_NAME DEV_PATH"
+	echo "Automatically mounts drives depending on command line arguments."
+	echo "  DIRECTORY_NAME: Name of the directory to be created and mounted."
+	echo "  DEVICE_PATH:    Path of the device to be mounted."
+	exit 0
 fi
 
 # Check if required arguments are provided
 if [ "$#" -ne 2 ]; then
-    echo "Error: Invalid number of arguments. Use --help for usage information."
-    exit 1
+	echo "Error: Invalid number of arguments. Use --help for usage information."
+	exit 1
 fi
 
 # Step 1: Create Directory
@@ -41,4 +41,5 @@ echo "UUID=$uuid $1 $type defaults 0 0" >> /etc/fstab
 
 # Step 4: Mount Drives
 echo -e "[\033[38;5;200m sudo mount -a \033[0m]"
+systemctl daemon-reload
 sudo mount -a

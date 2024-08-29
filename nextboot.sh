@@ -1,6 +1,9 @@
 #!/bin/bash
 
 # nextboot.sh - Reboots the system with the specified boot loader entry
+# DEPS
+# ----
+# bat, efibootmgr, fzf, bootctl
 
 win_boot_id=0001
 sb=0003
@@ -19,11 +22,12 @@ function next_boot() {
         echo "Reboots the system with the specified boot loader entry."
         echo
         echo "Options:"
-        echo -c , --choose Choose the next boot loader entry with fzf
-        echo -l , --list List available boot loader entries
-        echo -h , --help Show this help message
-        echo efi Reboots in UEFI interface
-        echo windows reboots to configured windows bootid - $win_boot_id
+        echo -e "\t-c , --choose Choose the next boot loader entry with fzf"
+        echo -e "\t-l , --list List available boot loader entries"
+        echo -e "\t-h , --help Show this help message"
+        echo -e "Quick Dial:"
+        printf "\t%-10s%s\n" "efi" "Reboots in UEFI interface"
+        printf "\t%-10s%s\n" "windows" "Reboots to configured windows bootid - $win_boot_id"
         return 0
     fi
     if [ "$1" == "-c" ] || [ "$1" == "--choose" ]; then
@@ -40,7 +44,7 @@ function next_boot() {
         if [ "$?" == 1 ]; then
             . ~/.bash_functions
             error "Failed to list boot loader entries."
-            error "Does the path exsist?"
+            error "Does the path exist?"
             return 1
         fi
         return 0
@@ -64,11 +68,11 @@ function next_boot() {
         echo "Reboot now? [Y/n]: "
         read -r answer
         if [[ $answer =~ ^[Yy]?$|^$ ]]; then
-            if [[ -f ~/scripts/shutdown/force_kill.sh ]]; then
-                ~/scripts/shutdown/force_kill.sh
-            fi
+            # if [[ -f ~/scripts/shutdown/force_kill.sh ]]; then
+                # ~/scripts/shutdown/force_kill.sh
+            # fi
             /bin/bash /home/joona/scripts/shutdown/move_boot_hwinfo.sh
-            sudo systemctl start reboot.target
+            sudo systemctl reboot
         else
             echo -e "\033[33mNext boot set - $bootlabel\033[0m"
             return 0
@@ -79,4 +83,14 @@ function next_boot() {
     fi
 }
 
-next_boot "$@"
+if which bat >/dev/null && \
+	which efibootmgr >/dev/null && \
+	which fzf >/dev/null && \
+	which bootctl >/dev/null; then
+		next_boot "$@"
+
+else
+	echo -e "\033[31mError: Script requires efibootmgr, bootctl"
+	echo -e "and is configured to use opt-deps fzf and bat\033[0m"
+fi
+
