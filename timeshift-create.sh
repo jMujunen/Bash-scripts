@@ -32,17 +32,17 @@ else
     while [[ $# -gt 0 ]]; do
         key="$1"
         case $key in
-            -c | --comments)
+            -c*)
                 comments="$2"
                 shift
                 shift
                 ;;
-            -t | --tag)
+            -t*)
                 tag="$2"
                 shift
                 shift
                 ;;
-            -d | --device)
+            -d*)
                 device="$2"
                 shift
                 shift
