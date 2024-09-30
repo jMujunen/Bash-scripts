@@ -28,4 +28,4 @@ function recover_tree {
     done < <(git ls-tree "$tree")
 }
 
-recover_tree a1a9147ff37fa321d52be3fe2e1fdf988d1a0650 .
+recover_tree "$1" .
