@@ -47,6 +47,7 @@ else
                 shift
                 shift
                 ;;
+            # "--skip-grub"
             *)
                 printhelp
                 ;;
