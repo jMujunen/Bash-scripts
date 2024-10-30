@@ -20,5 +20,7 @@ killall -9 steamwebhelper > /dev/null 2>&1 && echo "Killed Steam" || echo "Steam
 proc_ids=$(pgrep agex)
 
 for proc in $proc_ids; do
-    kill -9 "$proc" && echo "Killed PID $proc" || echo "Error killing PID $proc"
+    kill -9 "$proc" && echo -e "\033[32mKilled PID $proc\033[0m" || echo -e "\033[31mError killing PID $proc\033[0m"
 done
+
+ps x | grep -iP "Jagex" | awk '{print $1}' | xargs -P20 kill -9 > /dev/null 2>&1 && echo "Killed Jagex" || echo "Jagex not running"
