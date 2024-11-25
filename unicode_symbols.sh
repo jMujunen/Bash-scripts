@@ -18,5 +18,5 @@ fi
 
 for ((i = start; i < start + $end; i++)); do
     # Convert decimal to hexadecimal, then print the character
-    echo -ne "\033[1;40m \u$(printf '%x' $i) \033[0m \033[31m"
+    echo -ne "\033[1;30m \033[0m \u$(printf '%x' $i)"
 done
