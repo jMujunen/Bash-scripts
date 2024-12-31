@@ -17,6 +17,7 @@ else
 fi
 
 for ((i = start; i < start + $end; i++)); do
+    hex="$(printf '%x' $i)"
     # Convert decimal to hexadecimal, then print the character
-    echo -ne "\033[1;30m \033[0m \u$(printf '%x' $i)"
+    echo -ne "\033[1m $hex \u$hex"
 done

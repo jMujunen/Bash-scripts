@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Source color definitions and the main function 'save_sesh' from .bash_functions
-source "$ZDOTDIR/.color_defs"
+source "$ZDOTDIR/.color_defs.sh"
 source "$ZDOTDIR/.bash_functions"
 
 default_dir="$HOME/Logs/kitty"
@@ -27,10 +27,10 @@ if [ "$1" = "-h" ] || [ "$1" = "--help" ] || [[ $# -gt 1 ]]; then
 fi
 if save_hist "$1"; then
 	echo "Session history saved to $output_path" \
-		&& kdialog --msgbox "Saved shell stdin/stdout history to file $output_path" > /dev/null 2>&1
+		&& notify-send "SUCCESS" "Saved shell stdin/stdout history to file $output_path" > /dev/null 2>&1
 
 else
 	echo "Failed to save session history." \
-		&& kdialog --error "Failed save stdin/stdout hist to file $output_path" > /dev/null 2>&1
+		&& notify-send "FAILED" "Failed save stdin/stdout hist to file $output_path" > /dev/null 2>&1
 	printhelp | bat -ppl help
 fi
