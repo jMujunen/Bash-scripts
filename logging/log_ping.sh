@@ -1,6 +1,14 @@
 #!/bin/bash
+dest=$1
+
+if [ -z $dest ]; then
+    echo "Usage: log_ping.sh <dest/address>"
+    exit 1
+fi
+
+
 while true; do
-	output=$(ping -c 1 10.0.0.1 \
+	output=$(ping -c 1 $dest \
 		| sed -u 's/^.*time=//g; s/ ms//g; s/^PING.*//g; s/^---.*//g; s/^.*packets.*//g; s/^rtt.*//g' \
 		| grep -oP "\d+(\.\d+)?" \
 		| xargs echo)

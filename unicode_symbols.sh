@@ -15,7 +15,8 @@ else
     start=$1
     end=$2
 fi
-
+echo $start-$end
+sleep 2
 for ((i = start; i < start + $end; i++)); do
     hex="$(printf '%x' $i)"
     # Convert decimal to hexadecimal, then print the character
